@@ -1,28 +1,27 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import fetchSources from "../api/sources";
+import useFetch from "../api/api";
 
-function Sources() {
-  //   const [sources, setSources] = useState([]);
+const url =
+  "https://newsapi.org/v2/sources?apiKey=213327409d384371851777e7c7f78dfe";
 
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.sources);
-  console.log(data);
+export default function NewsCard() {
+  const news = useFetch(url);
 
-  useEffect(() => {
-    dispatch(fetchSources());
-  }, []);
-
-  return data.isLoading ? (
-    <h1>Loading..</h1>
-  ) : (
-    <div>
-      <h2>News Sources</h2>
-      {data.map((item) => (
-        <p>{item.name}</p>
-      ))}
+  return (
+    <div className="news-card">
+      <h2 className="news-header">News Daily</h2>
+      <ul className="news-list">
+        {news.length > 0 ? (
+          news.map((item) => (
+            <li key={item.id}>
+              <p>
+                <a href={item.url}> {item}</a>
+              </p>
+            </li>
+          ))
+        ) : (
+          <h1>Loading more...</h1>
+        )}
+      </ul>
     </div>
   );
 }
-
-export default Sources;
