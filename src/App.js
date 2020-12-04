@@ -1,14 +1,16 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Headlines from "./components/Headlines";
-import Sources from "./components/Sources";
+import Navbar from "./components/Navbar";
+import SourcesList from "./components/SourceList";
 
 function App() {
   return (
     <div className="App">
+      <Navbar />
       <Router>
         <Route path="/sources">
-          <Sources />
+          <SourcesList />
         </Route>
         <Route path="/headlines">
           <Headlines />
